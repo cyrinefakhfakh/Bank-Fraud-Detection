@@ -45,10 +45,14 @@ st.markdown(
 
 /* ══════ SIDEBAR ══════ */
 [data-testid="stSidebar"] {
-    background: linear-gradient(180deg, #1e2040 0%, #161830 100%) !important;
+    background:
+  linear-gradient(180deg, rgba(255,255,255,0.14) 0%, rgba(255,255,255,0.00) 60%),
+  linear-gradient(180deg, #343a7a 0%, #24285a 100%) !important;
+
     box-shadow: 6px 0 24px rgba(0,0,0,0.18);
     min-width: 240px !important;
 }
+
 [data-testid="stSidebar"] .stButton button {
     background: linear-gradient(135deg, #6c5ce7, #a855f7) !important;
     color: #fff !important;
@@ -71,7 +75,7 @@ st.markdown(
 [data-testid="stSidebar"] .stMetric .stMetricValue { color: #fff !important; font-size: 20px !important; font-weight: 700 !important; }
 
 /* ══════ HIDE BRANDING ══════ */
-#MainMenu { visibility: hidden; }
+# MainMenu { visibility: hidden; }
 footer { visibility: hidden; }
 header { visibility: hidden; }
 
@@ -490,18 +494,15 @@ def render_split_map_card(df_in: pd.DataFrame, title: str, key_prefix: str = "ma
         st.markdown("</div>", unsafe_allow_html=True)
         return
 
-    shown_total = len(show_df)
-    shown_fraud = int(show_df["is_fraud"].sum())
-
     with info_col:
         st.markdown(
             f"""
             <div style="background:#f8fafc;border:1px solid #eef2ff;border-radius:14px;padding:14px 14px;margin-bottom:12px;">
-                
 
-               
 
-                
+
+
+
             </div>
             """,
             unsafe_allow_html=True,
@@ -688,14 +689,24 @@ if "model" not in st.session_state:
 # SIDEBAR
 # ─────────────────────────────────────────────
 with st.sidebar:
+    # ── Sidebar Top Logo ─────────────────────────
     st.markdown(
         """
-    <div style="display:flex;align-items:center;gap:12px;padding:8px 4px 24px;">
-        <div style="width:44px;height:44px;border-radius:12px;background:linear-gradient(135deg,#6c5ce7,#a855f7);
-             display:flex;align-items:center;justify-content:center;font-size:22px;box-shadow:0 4px 14px rgba(108,92,231,.35);">🛡️</div>
-        <span style="color:#fff;font-size:20px;font-weight:800;">FraudGuard</span>
-    </div>
-    """,
+            <div style="padding:14px 8px 18px; display:flex; flex-direction:column; align-items:center;">
+            """,
+        unsafe_allow_html=True,
+    )
+
+    # Your logo image (make sure Logo.png is in the same folder as this .py file)
+    st.image("Logo.png", width=190)
+
+    st.markdown(
+        """
+                <div style="margin-top:10px; color:#ffffff; font-size:18px; font-weight:800; letter-spacing:.3px;">
+                    FraudGuard
+                </div>
+            </div>
+            """,
         unsafe_allow_html=True,
     )
 
@@ -711,12 +722,12 @@ with st.sidebar:
         shadow = "box-shadow:0 4px 14px rgba(108,92,231,.3);" if active else ""
         st.markdown(
             f"""
-        <div style="display:flex;align-items:center;gap:12px;padding:12px 16px;margin:4px 8px;
-             border-radius:12px;background:{bg};cursor:pointer;{shadow}transition:all .2s;">
-            <span style="font-size:18px;">{icon}</span>
-            <span style="color:{clr};font-weight:{'700' if active else '500'};font-size:14px;">{label}</span>
-        </div>
-        """,
+                <div style="display:flex;align-items:center;gap:12px;padding:12px 16px;margin:4px 8px;
+                    border-radius:12px;background:{bg};cursor:pointer;{shadow}transition:all .2s;">
+                    <span style="font-size:18px;">{icon}</span>
+                    <span style="color:{clr};font-weight:{'700' if active else '500'};font-size:14px;">{label}</span>
+                </div>
+                """,
             unsafe_allow_html=True,
         )
 
@@ -729,8 +740,6 @@ with st.sidebar:
         '<p style="color:#6b6e85;font-size:11px;text-transform:uppercase;letter-spacing:.7px;padding:0 8px;margin-bottom:8px;">Data Overview</p>',
         unsafe_allow_html=True,
     )
-    st.metric("Total Records", f"{len(df):,}")
-    st.metric("Data Range", "Last 24 Hours")
 
     st.markdown(
         "<hr style='border:none;border-top:1px solid #2a2d4a;margin:16px 8px;'>",
@@ -739,11 +748,11 @@ with st.sidebar:
 
     st.markdown(
         """
-    <div style="margin:8px;padding:14px 16px;background:rgba(16,185,129,.12);border-radius:12px;
-         border-left:3px solid #10b981;">
-        <span style="color:#10b981;font-weight:600;font-size:13px;">● All Systems Operational</span>
-    </div>
-    """,
+        <div style="margin:8px;padding:14px 16px;background:rgba(16,185,129,.12);border-radius:12px;
+            border-left:3px solid #10b981;">
+            <span style="color:#10b981;font-weight:600;font-size:13px;">● All Systems Operational</span>
+        </div>
+        """,
         unsafe_allow_html=True,
     )
     st.markdown(
