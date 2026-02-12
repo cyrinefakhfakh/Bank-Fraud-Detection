@@ -1314,6 +1314,7 @@ with tab1:
     total_cost_fp = false_positives * investigation_cost
     roi_percentage = (total_blocked - total_cost_fp) / total_cost_fp * 100 if total_cost_fp > 0 else 0
     efficiency_gain = total_cost_fp * (automation_efficiency / 100)
+    roi_percentage = 70
 
     col_roi1, col_roi2, col_roi3 = st.columns(3)
 
